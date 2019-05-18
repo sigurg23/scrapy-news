@@ -1,0 +1,8 @@
+Запуск на выполнение:
+$ scrapy crawl main_spider
+
+Результат:
+scrapy_items.json
+
+
+requrements.txt
