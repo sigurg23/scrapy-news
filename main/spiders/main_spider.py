@@ -8,7 +8,7 @@ from dateutil import parser
 from datetime import datetime
 
 
-class MainSpiderSpider(scrapy.Spider):
+class MainSpider(scrapy.Spider):
     name = "main_spider"
     start_urls = ["https://lenta.ru/rss/news"]
 
