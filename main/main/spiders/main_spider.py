@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import scrapy
-import datetime
-import uuid
 import bs4
+import uuid
+import scrapy
+
+from dateutil import parser
+from datetime import datetime
 
 
 class MainSpiderSpider(scrapy.Spider):
@@ -17,6 +19,8 @@ class MainSpiderSpider(scrapy.Spider):
             title = item.xpath(".//title//text()").extract_first()
             link = item.xpath(".//link//text()").extract_first()
             publishedDateTime = item.xpath(".//pubDate//text()").extract_first()
+            publishedDateTime = parser.parse(publishedDateTime)
+            publishedDateTime = publishedDateTime.isoformat()
 
             yield scrapy.Request(
                 link,
@@ -26,7 +30,7 @@ class MainSpiderSpider(scrapy.Spider):
                         "uid": str(uuid.uuid4()),
                         "link": link,
                         "title": title,
-                        "importedDateTime": str(datetime.datetime.now()),
+                        "importedDateTime": str(datetime.now()),
                         "publishedDateTime": publishedDateTime 
                     }
                 }
