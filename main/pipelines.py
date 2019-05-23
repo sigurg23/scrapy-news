@@ -9,30 +9,31 @@ import json
 
 
 class JsonWriterPipeline(object):
+    def __init__(self):
+        self.result = []
+
     def open_spider(self, spider):
-        self.file = open('scraped_items.json', 'w')
-        # Your scraped items will be saved in the file 'scraped_items.json'.
-        # You can change the filename to whatever you want.
-        self.file.write("[")
+        self.result = []
 
     def close_spider(self, spider):
-        self.file.write("]")
-        self.file.close()
+
+        with open('scraped_items.json', 'w') as file:
+            text = json.dumps(
+                self.result,
+                indent=4,
+                separators=(',', ': '),
+                ensure_ascii=False
+            )
+            file.write(text)
+
+        self.result = []
 
     def process_item(self, item, spider):
-        line = json.dumps(
-            dict(item),
-            indent=4,
-            # sort_keys=True,
-            separators=(',', ': '),
-            ensure_ascii=False
-        ) + ",\n"
-        self.file.write(line)
+        self.result.append(item)
+
         return item
 
 
 class MainPipeline(object):
     def process_item(self, item, spider):
-
-        print("+++++++++++ ", item)
         return item
