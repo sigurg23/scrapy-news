@@ -12,7 +12,7 @@ dateutils==0.6.6
 hyperlink==19.0.0
 idna==2.8
 incremental==17.5.0
-lxml==4.3.3
+lxml==4.6.2
 parsel==1.5.1
 peewee==3.9.5
 pyasn1==0.4.5
